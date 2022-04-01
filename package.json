@@ -1,6 +1,6 @@
 {
-  "name": "api-creation-workshop",
-  "version": "1.0.0",
+  "name": "pretty",
+  "version": "1.0.1",
   "description": "In thie workshop we explore how to create an API using ExpressJS.",
   "main": "index.js",
   "scripts": {
@@ -10,5 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matjutapretty/api-creation-workshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matjutapretty/api-creation-workshop/issues"
+  },
+  "homepage": "https://github.com/matjutapretty/api-creation-workshop#readme"
 }
