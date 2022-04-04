@@ -2,6 +2,11 @@
 const express = require('express');
 const app = express();
 
+// enable the req.body object - to allow us to use HTML forms
+// when doing post requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 // import the dataset to be used here
 const garments = require('./garments.json');
 
