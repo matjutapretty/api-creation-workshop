@@ -1,45 +1,36 @@
-// add code in here to create an API with ExpressJS
 const express = require('express');
+const { get } = require('express/lib/request');
 const app = express();
-
-// enable the req.body object - to allow us to use HTML forms
-// when doing post requests
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// import the dataset to be used here
-const garments = require('./garments.json');
 
 // enable the static folder...
 app.use(express.static('public'));
+// enable the req.body object
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// import the dataset to be used here
+const garments = require('./garments.json');
 
-// API route
-
-app.get('/api/garments', function(req, res){
-
+// API routes to be added here
+app.get('/api/garments', function (req, res) {
 	const gender = req.query.gender;
 	const season = req.query.season;
 
 	const filteredGarments = garments.filter(garment => {
 		// if both gender & season was supplied
 		if (gender != 'All' && season != 'All') {
-			return garment.gender === gender 
-				&& garment.season === season;
-		} else if(gender != 'All') { // if gender was supplied
 			return garment.gender === gender
-		} else if(season != 'All') { // if season was supplied
+				&& garment.season === season;
+		} else if (gender != 'All') { // if gender was supplied
+			return garment.gender === gender
+		} else if (season != 'All') { // if season was supplied
 			return garment.season === season
 		}
 		return true;
 	});
-
 	// note that this route just send JSON data to the browser
 	// there is no template
-	res.json({ 
-		garments : filteredGarments
-	});
+	res.json({ garments: filteredGarments });
 });
-
 app.get('/api/garments/price/:price', function(req, res){
 	const maxPrice = Number(req.params.price);
 	const filteredGarments = garments.filter( garment => {
@@ -54,13 +45,49 @@ app.get('/api/garments/price/:price', function(req, res){
 		garments : filteredGarments
 	});
 });
+app.post('/api/garments', (req, res) => {
 
-// import the dataset to be used here
+	// get the fields send in from req.body
+	const {
+		description,
+		img,
+		gender,
+		season,
+		price
+	} = req.body;
 
-const PORT = process.env.PORT || 4017;
+	// add some validation to see if all the fields are there.
+	// only 3 fields are made mandatory here
+	// you can change that
 
-// API routes to be added here
+	if (!description || !img || !price) {
+		res.json({
+			status: 'error',
+			message: 'Please fill in the empty fields',
+		});
+	} else {
 
-app.listen(PORT, function() {
+		// you can check for duplicates here using garments.find
+		
+		// add a new entry into the garments list
+		garments.push({
+			description,
+			img,
+			gender,
+			season,
+			price
+		});
+
+		res.json({
+			status: 'success',
+			message: 'New garment added.',
+		});
+	}
+
+});
+
+const PORT = process.env.PORT || 4020;
+app.listen(PORT, function () {
 	console.log(`App started on port ${PORT}`)
 });
+
