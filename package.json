@@ -4,8 +4,8 @@
   "description": "In thie workshop we explore how to create an API using ExpressJS.",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon index.js",
-    "devStartAuth": "nodemon authServer.js",
+    "start": "nodemon index.js",
+    "startAuth": "nodemon authServer.js",
     "test": "test"
   },
   "author": "",
