@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const { get } = require('express/lib/request');
 const app = express();
@@ -10,7 +12,50 @@ app.use(express.urlencoded({ extended: false }));
 // import the dataset to be used here
 const garments = require('./garments.json');
 
+const jwt = require('jsonwebtoken')
+app.use(express.json())
+
 // API routes to be added here
+const garment = [
+	{
+	username: 'matjutapretty',
+	title: 'Post 1'
+	}
+]
+
+app.get('/api/garment', authenticateToken, (req, res) => {
+	res.json(garment.filter(garme => garme.username === req.user.name))
+})
+
+app.post('/api/login', (req, res) => {
+	// Aunthenticate User
+	const username = req.body.username
+	const user = { name: username }
+
+	const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+	res.json({ accessToken: accessToken })
+
+})
+
+app.delete('/api/logout', (req, res) => {
+    refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+    res.sendStatus(204)
+})
+
+function authenticateToken (req, res, next) {
+	const authHeader = req.headers['authorization']
+	const token = authHeader && authHeader.split(' ')[1]
+	if (token == null)
+	return res.sendStatus(401)
+	
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+		if (err)
+		return res.sendStatus(403) 
+		req.user = user
+		next()
+	})
+}
+
 app.get('/api/garments', function (req, res) {
 	const gender = req.query.gender;
 	const season = req.query.season;

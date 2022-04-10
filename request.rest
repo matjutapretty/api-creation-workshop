@@ -1,0 +1,31 @@
+GET http://localhost:4020/api/garments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDI1OCwiZXhwIjoxNjQ5NjI0MzU4fQ.v9sGvHuSPFfErLZQfbGtrMdM2B-F7kP0izUIKf-LtI8
+
+###
+
+POST http://localhost:4030/token
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDI5Mn0.RFY-BehpYnMpRXPF5R9GiVn0gjW2wvzvztrzGKsVnB4"
+
+}
+
+###
+
+POST http://localhost:4030/api/logout
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDc0NH0.-AluwhCPdHRuzL1etIsk9qb09LQAy_6mCpZb7GwjUV4"
+
+}
+
+
+###
+POST http://localhost:4030/api/login
+Content-Type: application/json
+
+{
+    "username" : "matjutapretty"
+}
