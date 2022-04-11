@@ -1,5 +1,5 @@
 GET http://localhost:4020/api/garments
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDI1OCwiZXhwIjoxNjQ5NjI0MzU4fQ.v9sGvHuSPFfErLZQfbGtrMdM2B-F7kP0izUIKf-LtI8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTY2MDQ0OCwiZXhwIjoxNjQ5NzQ2ODQ4fQ.AgYAhlMVJa9nJ-PqWiN2X46mKax3fxZPQLi4Pgv1_KQ
 
 ###
 
@@ -7,17 +7,17 @@ POST http://localhost:4030/token
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDI5Mn0.RFY-BehpYnMpRXPF5R9GiVn0gjW2wvzvztrzGKsVnB4"
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTY2MDQ0OH0.MsT9lTiuwrE_U_Xu1MElhGOfCa7KScNTplmbwAfL8rQ"
 
 }
 
 ###
 
-POST http://localhost:4030/api/logout
+DELETE http://localhost:4030/api/logout
 Content-Type: application/json
 
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTYyNDc0NH0.-AluwhCPdHRuzL1etIsk9qb09LQAy_6mCpZb7GwjUV4"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTY2MDQ0OH0.MsT9lTiuwrE_U_Xu1MElhGOfCa7KScNTplmbwAfL8rQ"
 
 }
 
