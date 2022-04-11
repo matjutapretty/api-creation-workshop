@@ -16,15 +16,20 @@ const jwt = require('jsonwebtoken')
 app.use(express.json())
 
 // API routes to be added here
-const garment = [
-	{
-	username: 'matjutapretty',
-	title: 'Post 1'
-	}
-]
+// const garment = [
+// 	{
+// 	username: 'matjutapretty',
+// 	title: 'Post 1'
+// 	}
+// ]
 
 app.get('/api/garment', authenticateToken, (req, res) => {
 	res.json(garment.filter(garme => garme.username === req.user.name))
+
+	[{
+		username: 'matjutapretty',
+		title: 'Post 1'
+		}]
 })
 
 app.post('/api/login', (req, res) => {
