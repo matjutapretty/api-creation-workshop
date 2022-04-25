@@ -71,7 +71,7 @@ const login = () => {
       filterData();
     })
     .catch((err) => {
-      loginElem.innerHTML += `<div style="color:red;">Access Denied<div>`;
+      loginElem.innerHTML += `<div style="color:red;">Forbidden<div>`;
     });
 };
 
