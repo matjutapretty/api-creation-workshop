@@ -1,4 +1,4 @@
-GET http://localhost:4020/api/garments
+GET http://localhost:4018/api/garments
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0anV0YXByZXR0eSIsImlhdCI6MTY0OTY3NDAwNSwiZXhwIjoxNjQ5NzYwNDA1fQ.ASCD89d8mh5hgRLAtIYRl2WRqxbE5exMsYGffPGg0Go
 
 ###

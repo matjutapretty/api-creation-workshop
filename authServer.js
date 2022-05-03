@@ -19,12 +19,12 @@ app.post('/token', (req, res) => {
   })
 })
 
-app.delete('/logout', (req, res) => {
+app.delete('/api/logout', (req, res) => {
   refreshTokens = refreshTokens.filter(token => token !== req.body.token)
   res.sendStatus(204)
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   // Authenticate User
 
   const username = req.body.username
@@ -40,4 +40,4 @@ function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
 }
 
-app.listen(4000)
+app.listen(4030)

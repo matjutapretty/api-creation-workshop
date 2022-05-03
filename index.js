@@ -2,7 +2,7 @@ require('dotenv').config()
 const _ = require('lodash');
 
 const express = require('express');
-const { get } = require('express/lib/request');
+// const { get } = require('express/lib/request');
 const app = express();
 
 // enable the static folder...
@@ -16,9 +16,23 @@ const garments = require('./garments.json');
 const jwt = require('jsonwebtoken')
 app.use(express.json())
 
-// API routes to be added here
+const GarmentManager = require('./shop/garment-manager');
+const pg = require('pg');
+const Pool = pg.Pool;
 
-app.get('/api/garments', authenticateToken, (req, res) => {
+const connectionString =
+  process.env.DATABASE_URL ||
+  'postgresql://missy_tee:missy123@localhost:5432/missy_tee_app';
+const pool = new Pool({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+const garmentManager = GarmentManager(pool);
+
+app.get('/api/garments', async function(req, res){
 	const gender = req.query.gender;
 	const season = req.query.season;
 
@@ -37,20 +51,22 @@ app.get('/api/garments', authenticateToken, (req, res) => {
 	
 	res.json({ garments: filteredGarments });
 });
-app.get('/api/garments/price/:price', authenticateToken, (req, res) => {
-	const maxPrice = Number(req.params.price);
-	const filteredGarments = garments.filter( garment => {
 
-		if (maxPrice > 0) {
-			return garment.price <= maxPrice;
-		}
-		return true;
+app.get('/api/garments', async function(req, res){
+
+	const gender = req.query.gender;
+	const season = req.query.season;
+
+	const filteredGarments = await garmentManager.filter({
+		gender,
+		season
 	});
 
 	res.json({ 
 		garments : filteredGarments
 	});
 });
+
 app.post('/api/garments', authenticateToken, (req, res) => {
 
 	const {
@@ -75,9 +91,6 @@ app.post('/api/garments', authenticateToken, (req, res) => {
 		  message: 'Garment already exists',
 		});
 	  }else {
-
-		// you can check for duplicates here using garments.find
-		// add a new entry into the garments list
 		garments.push({
 			description,
 			img,
@@ -94,6 +107,21 @@ app.post('/api/garments', authenticateToken, (req, res) => {
 
 });
 
+app.get('/api/garments/price/:price', async function(req, res){
+	const maxPrice = Number(req.params.price);
+	const filteredGarments = garments.filter( garment => {
+
+		if (maxPrice > 0) {
+			return garment.price <= maxPrice;
+		}
+		return true;
+	});
+
+	res.json({ 
+		garments : filteredGarments
+	});
+});
+
 const generateAccessToken = (user) => {
 	return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
 	  expiresIn: '24h',
@@ -108,6 +136,7 @@ const generateAccessToken = (user) => {
 
 	  res.json({accessToken: accessToken});
 	}
+	res.sendStatus(401);
   });
   
   function authenticateToken(req, res, next) {
